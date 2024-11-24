@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './src/components/Login';
-import './src/App.css';
+import SignUp from './src/components/SignUp'
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* Add more routes as needed */}
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );
