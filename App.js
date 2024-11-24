@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme';
-import Login from './src/components/Login';
-import SignUp from './src/components/SignUp';
+import theme from './src/theme';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
