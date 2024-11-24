@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { Platform } from 'react-native';
 import { 
   Container,
   Paper,
@@ -17,7 +18,14 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const webNavigate = useNavigate();
+  const navigate = (path) => {
+    if (Platform.OS === 'web') {
+      webNavigate(path);
+    } else {
+      props.navigation.navigate(path);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { Platform } from 'react-native';
 import { 
   Container,
   Paper,
@@ -23,7 +24,14 @@ function Login() {
   const [resetEmail, setResetEmail] = useState('');
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
-  const navigate = useNavigate();
+  const webNavigate = useNavigate();
+  const navigate = (path) => {
+    if (Platform.OS === 'web') {
+      webNavigate(path);
+    } else {
+      props.navigation.navigate(path);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
