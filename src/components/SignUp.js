@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import './SignUp.css';
+import { 
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Alert
+} from '@mui/material';
 
 function SignUp() {
   const [email, setEmail] = useState('');
@@ -28,43 +36,74 @@ function SignUp() {
   };
 
   return (
-    <div className="signup-container">
-      <form onSubmit={handleSubmit} className="signup-form">
-        <h2>Sign Up</h2>
-        {error && <p className="error">{error}</p>}
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
+    <Container component="main" maxWidth="xs" sx={{ 
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <Paper elevation={3} sx={{ width: '100%', maxWidth: 400 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ p: 3 }}>
+          <Typography component="h1" variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
+            Sign Up
+          </Typography>
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
-        </div>
-        <div className="form-group">
-          <label>Confirm Password:</label>
-          <input
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="Confirm Password"
             type="password"
+            id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
           />
-        </div>
-        <button type="submit">Sign Up</button>
-        <p className="login-text">
-          Already have an account? <button onClick={() => navigate('/')} className="login-link">Login</button>
-        </p>
-      </form>
-    </div>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body2">
+              Already have an account?{' '}
+              <Button
+                onClick={() => navigate('/')}
+                sx={{ p: 0, minWidth: 'auto' }}
+              >
+                Login
+              </Button>
+            </Typography>
+          </Box>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 
