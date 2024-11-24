@@ -24,10 +24,9 @@ function Login() {
   const [resetEmail, setResetEmail] = useState('');
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
-  const webNavigate = useNavigate();
   const navigate = (path) => {
     if (Platform.OS === 'web') {
-      webNavigate(path);
+      useNavigate().path
     } else {
       props.navigation.navigate(path);
     }
