@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import './SignUp.css';
 
-function Login() {
+function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
     } catch (error) {
-      setError('Failed to log in. Please check your credentials.');
+      setError('Failed to create an account. ' + error.message);
     }
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
+    <div className="signup-container">
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2>Sign Up</h2>
         {error && <p className="error">{error}</p>}
         <div className="form-group">
           <label>Email:</label>
@@ -43,13 +50,22 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
-        <p className="signup-text">
-          Don't have an account? <button onClick={() => navigate('/signup')} className="signup-link">Sign Up</button>
+        <div className="form-group">
+          <label>Confirm Password:</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Sign Up</button>
+        <p className="login-text">
+          Already have an account? <button onClick={() => navigate('/')} className="login-link">Login</button>
         </p>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
