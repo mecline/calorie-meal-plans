@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { auth } from '../firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { 
   Container,
@@ -9,13 +9,20 @@ import {
   TextField,
   Button,
   Box,
-  Alert
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
+  const [openResetDialog, setOpenResetDialog] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -73,6 +80,14 @@ function Login() {
           >
             Login
           </Button>
+          <Box sx={{ textAlign: 'center', mb: 2 }}>
+            <Button
+              onClick={() => setOpenResetDialog(true)}
+              sx={{ textTransform: 'none' }}
+            >
+              Forgot Password?
+            </Button>
+          </Box>
           <Box sx={{ textAlign: 'center' }}>
             <Typography variant="body2">
               Don't have an account?{' '}
@@ -86,6 +101,51 @@ function Login() {
           </Box>
         </Box>
       </Paper>
+      <Dialog open={openResetDialog} onClose={() => setOpenResetDialog(false)}>
+        <DialogTitle>Reset Password</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="resetEmail"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="outlined"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+          />
+          {resetSuccess && (
+            <Alert severity="success" sx={{ mt: 2 }}>
+              Password reset email sent! Check your inbox.
+            </Alert>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            setOpenResetDialog(false);
+            setResetEmail('');
+            setResetSuccess(false);
+          }}>
+            Cancel
+          </Button>
+          <Button onClick={async () => {
+            try {
+              await sendPasswordResetEmail(auth, resetEmail);
+              setResetSuccess(true);
+              setTimeout(() => {
+                setOpenResetDialog(false);
+                setResetEmail('');
+                setResetSuccess(false);
+              }, 3000);
+            } catch (error) {
+              setError('Failed to send reset email. Please check the email address.');
+            }
+          }}>
+            Send Reset Link
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
