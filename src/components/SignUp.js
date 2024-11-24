@@ -3,8 +3,8 @@ import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Platform } from 'react-native';
+import { CrossPlatformContainer } from './SharedStyles';
 import { 
-  Container,
   Paper,
   Typography,
   TextField,
@@ -44,12 +44,7 @@ function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ 
-      height: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
+    <CrossPlatformContainer component="main" maxWidth="xs">
       <Paper elevation={3} sx={{ width: '100%', maxWidth: 400 }}>
         <Box component="form" onSubmit={handleSubmit} sx={{ p: 3 }}>
           <Typography component="h1" variant="h5" sx={{ mb: 3, textAlign: 'center' }}>
@@ -111,7 +106,7 @@ function SignUp() {
           </Box>
         </Box>
       </Paper>
-    </Container>
+    </CrossPlatformContainer>
   );
 }
 
