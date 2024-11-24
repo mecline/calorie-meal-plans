@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './src/theme';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Login from './src/components/Login';
+import SignUp from './src/components/SignUp';
 
 function App() {
   return (
