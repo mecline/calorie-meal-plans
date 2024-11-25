@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from './src/theme';
@@ -11,7 +11,7 @@ import SignUp from './src/components/SignUp';
 // Web-specific imports
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function App() {
   // Web rendering

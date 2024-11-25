@@ -23,7 +23,7 @@ function SignUp() {
     if (Platform.OS === 'web') {
       webNavigate(path);
     } else {
-      props.navigation.navigate(path);
+      navigation.navigate(path);
     }
   };
 
