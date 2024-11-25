@@ -2,7 +2,8 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { ThemeProvider as NativeThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './src/theme';
@@ -34,11 +35,19 @@ function WebNavigation() {
 }
 
 function App() {
+  if (Platform.OS === 'web') {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <WebNavigation />
+      </MuiThemeProvider>
+    );
+  }
+  
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {Platform.OS === 'web' ? <WebNavigation /> : <MobileNavigation />}
-    </ThemeProvider>
+    <NativeThemeProvider theme={theme}>
+      <MobileNavigation />
+    </NativeThemeProvider>
   );
 }
 
