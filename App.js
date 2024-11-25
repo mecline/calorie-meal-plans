@@ -9,35 +9,22 @@ import Login from './src/components/Login';
 import SignUp from './src/components/SignUp';
 
 // Web-specific imports
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NavigationContainer as WebNavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  // Web rendering
-  if (Platform.OS === 'web') {
-    return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    );
-  }
+  const NavigationWrapper = Platform.OS === 'web' ? WebNavigationContainer : NavigationContainer;
 
-  // Mobile rendering
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
+      <CssBaseline />
+      <NavigationWrapper>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="SignUp" component={SignUp} />
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationWrapper>
     </ThemeProvider>
   );
 }
