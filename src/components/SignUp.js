@@ -19,11 +19,13 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const webNavigate = useNavigate();
+  const { navigation } = Platform.OS === 'web' ? {} : props;
+  
   const navigate = (path) => {
     if (Platform.OS === 'web') {
       webNavigate(path);
     } else {
-      navigation.navigate(path);
+      navigation?.navigate(path);
     }
   };
 

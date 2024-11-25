@@ -4,27 +4,40 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './src/theme';
 import Login from './src/components/Login';
 import SignUp from './src/components/SignUp';
 
-// Web-specific imports
-import { NavigationContainer as WebNavigationContainer } from '@react-navigation/native';
-
 const Stack = createNativeStackNavigator();
 
-function App() {
-  const NavigationWrapper = Platform.OS === 'web' ? WebNavigationContainer : NavigationContainer;
+function MobileNavigation() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
+function WebNavigation() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <NavigationWrapper>
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Navigator>
-      </NavigationWrapper>
+      {Platform.OS === 'web' ? <WebNavigation /> : <MobileNavigation />}
     </ThemeProvider>
   );
 }

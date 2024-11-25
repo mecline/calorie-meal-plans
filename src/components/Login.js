@@ -25,11 +25,13 @@ function Login() {
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
   const webNavigate = useNavigate();
+  const { navigation } = Platform.OS === 'web' ? {} : props;
+  
   const navigate = (path) => {
     if (Platform.OS === 'web') {
       webNavigate(path);
     } else {
-      navigation.navigate(path);
+      navigation?.navigate(path);
     }
   };
 
