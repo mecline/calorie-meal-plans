@@ -10,9 +10,11 @@ import theme from './src/theme';
 import WebLogin from './src/components/web/WebLogin';
 import WebSignUp from './src/components/web/WebSignUp';
 import WebDashboard from './src/components/web/WebDashboard';
+import WebAddRecipe from './src/components/web/WebAddRecipe';
 import MobileLogin from './src/components/mobile/MobileLogin';
 import MobileSignUp from './src/components/mobile/MobileSignUp';
 import MobileDashboard from './src/components/mobile/MobileDashboard';
+import MobileAddRecipe from './src/components/mobile/MobileAddRecipe';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,11 @@ function MobileApp() {
           component={MobileDashboard}
           options={{ title: 'Dashboard' }}
         />
+        <Stack.Screen 
+          name="AddRecipe" 
+          component={MobileAddRecipe}
+          options={{ title: 'Add Recipe' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -53,6 +60,7 @@ function WebApp() {
         <Route path="/" element={<WebLogin />} />
         <Route path="/signup" element={<WebSignUp />} />
         <Route path="/dashboard" element={<WebDashboard />} />
+        <Route path="/add-recipe" element={<WebAddRecipe />} />
       </Routes>
     </Router>
   );

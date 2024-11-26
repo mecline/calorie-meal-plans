@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 function MobileDashboard() {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       {/* Daily Calorie Overview */}
@@ -25,7 +27,7 @@ function MobileDashboard() {
         <View style={styles.buttonContainer}>
           <TouchableOpacity 
             style={styles.button}
-            onPress={() => {/* TODO: Implement add recipe */}}
+            onPress={() => navigation.navigate('AddRecipe')}
           >
             <Text style={styles.buttonText}>Add Recipe</Text>
           </TouchableOpacity>

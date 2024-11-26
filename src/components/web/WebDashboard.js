@@ -45,7 +45,7 @@ function WebDashboard() {
               <Button
                 variant="contained"
                 startIcon={<RestaurantIcon />}
-                onClick={() => {/* TODO: Implement add recipe */}}
+                onClick={() => window.location.href = '/add-recipe'}
               >
                 Add Recipe
               </Button>
