@@ -14,9 +14,23 @@ const Stack = createNativeStackNavigator();
 function MobileNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Navigator 
+        initialRouteName="Login" 
+        screenOptions={{ 
+          headerShown: false,
+          contentStyle: { backgroundColor: 'white' }
+        }}
+      >
+        <Stack.Screen 
+          name="Login" 
+          component={Login}
+          options={{ title: 'Login' }}
+        />
+        <Stack.Screen 
+          name="SignUp" 
+          component={SignUp}
+          options={{ title: 'Sign Up' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

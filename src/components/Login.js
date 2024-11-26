@@ -3,6 +3,7 @@ import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { CrossPlatformContainer } from './SharedStyles';
 import { 
   Paper,
@@ -25,7 +26,7 @@ function Login() {
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
   const webNavigate = useNavigate();
-  const { navigation } = Platform.OS === 'web' ? {} : props;
+  const { navigation } = Platform.OS === 'web' ? {} : useNavigation();
   
   const navigate = (path) => {
     if (Platform.OS === 'web') {
