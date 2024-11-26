@@ -25,12 +25,12 @@ function Login() {
   const [resetEmail, setResetEmail] = useState('');
   const [openResetDialog, setOpenResetDialog] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
-  const webNavigate = useNavigate();
+  // const webNavigate = useNavigate();
   const { navigation } = Platform.OS === 'web' ? {} : useNavigation();
   
   const navigate = (path) => {
     if (Platform.OS === 'web') {
-      webNavigate(path);
+      useNavigate(path);
     } else {
       navigation?.navigate(path);
     }
