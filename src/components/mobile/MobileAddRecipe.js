@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { addRecipe } from '../../services/recipeService';
 import {
   View,
   Text,
@@ -27,9 +29,20 @@ function MobileAddRecipe() {
     }));
   };
 
-  const handleSubmit = () => {
-    // TODO: Implement recipe submission
-    console.log(recipe);
+  const navigation = useNavigation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      await addRecipe(recipe);
+      navigation.navigate('Dashboard');
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+      // You might want to show an error message to the user here
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -100,8 +113,9 @@ function MobileAddRecipe() {
         </View>
 
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, isSubmitting && styles.buttonDisabled]}
           onPress={handleSubmit}
+          disabled={isSubmitting}
         >
           <Text style={styles.buttonText}>Add Recipe</Text>
         </TouchableOpacity>
@@ -156,6 +170,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  buttonDisabled: {
+    opacity: 0.7,
   },
 });
 

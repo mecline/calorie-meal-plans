@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addRecipe } from '../../services/recipeService';
 import {
   Box,
   Container,
@@ -30,10 +32,21 @@ function WebAddRecipe() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement recipe submission
-    console.log(recipe);
+    setIsSubmitting(true);
+    try {
+      await addRecipe(recipe);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+      // You might want to show an error message to the user here
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -129,6 +142,7 @@ function WebAddRecipe() {
                 variant="contained"
                 color="primary"
                 fullWidth
+                disabled={isSubmitting}
               >
                 Add Recipe
               </Button>
