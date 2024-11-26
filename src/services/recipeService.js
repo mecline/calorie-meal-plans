@@ -3,6 +3,8 @@ import { db, auth } from '../firebaseConfig';
 
 export const addRecipe = async (recipeData) => {
   try {
+    console.log(recipeData)
+    (console.log(auth))
     const docRef = await addDoc(collection(db, 'recipes'), {
       ...recipeData,
       userId: auth.currentUser.uid,
