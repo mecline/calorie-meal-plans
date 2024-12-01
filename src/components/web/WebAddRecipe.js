@@ -20,7 +20,7 @@ function WebAddRecipe() {
     protein: '',
     carbs: '',
     fat: '',
-    ingredients: '',
+    ingredients: [],
     isFastFood: false
   });
 
@@ -75,7 +75,6 @@ function WebAddRecipe() {
                 type="number"
                 value={recipe.calories}
                 onChange={handleChange}
-                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -86,7 +85,6 @@ function WebAddRecipe() {
                 type="number"
                 value={recipe.protein}
                 onChange={handleChange}
-                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,7 +95,6 @@ function WebAddRecipe() {
                 type="number"
                 value={recipe.carbs}
                 onChange={handleChange}
-                required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -108,7 +105,6 @@ function WebAddRecipe() {
                 type="number"
                 value={recipe.fat}
                 onChange={handleChange}
-                required
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,8 +116,7 @@ function WebAddRecipe() {
                 rows={4}
                 value={recipe.ingredients}
                 onChange={handleChange}
-                required
-                helperText="Enter ingredients, one per line"
+                helperText="Enter ingredients seperated by commas"
               />
             </Grid>
             <Grid item xs={12}>

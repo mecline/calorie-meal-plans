@@ -1,15 +1,17 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import Constants from 'expo-constants';
 
+// Log all config values to verify
 const firebaseConfig = {
-  apiKey: "AIzaSyDWkI4ghJV1PtqF9_Pm5ulQI_WD5QJLK8Y",
-  authDomain: "calorie-meal-planner.firebaseapp.com",
-  projectId: "calorie-meal-planner",
-  storageBucket: "calorie-meal-planner.appspot.com",
-  messagingSenderId: "654009459802",
-  appId: "1:654009459802:web:d4bff7992e5c56fb9e2a0a",
-  measurementId: "G-HNVT9YBRBM"
+  apiKey: Constants.expoConfig.extra.FIREBASE_API_KEY,
+  authDomain: `${Constants.expoConfig.extra.FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: Constants.expoConfig.extra.FIREBASE_PROJECT_ID,
+  storageBucket: `${Constants.expoConfig.extra.FIREBASE_PROJECT_ID}.appspot.com`,
+  messagingSenderId: Constants.expoConfig.extra.FIREBASE_SENDER_ID,
+  appId: Constants.expoConfig.extra.FIREBASE_APP_ID,
+  measurementId: Constants.expoConfig.extra.FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
